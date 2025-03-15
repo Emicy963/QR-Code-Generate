@@ -14,7 +14,10 @@ def generete_qr_code(request):
             qr = qrcode.make(url)
             file_name = res_name.replace(" ", "_").lower() + '_menu.png'
             qr.save(file_name)
-        #return
+            context = {
+                'res_name': res_name.title()
+            }
+            return render(request, 'qr_result.html', context)
     elif request.method == 'GET':
         form = QRCodeForm()
         context = {
