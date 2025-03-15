@@ -1,4 +1,10 @@
 from django.shortcuts import render
+from .forms import QRCodeForm
+
 
 def generete_qr_code(request):
-    return render(request, 'generete_qr_code.html')
+    form = QRCodeForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'generete_qr_code.html', context)
