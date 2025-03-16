@@ -25,6 +25,7 @@ def generete_qr_code(request):
             context = {
                 'res_name': res_name.title(),
                 'qr_url': qr_url,
+                'file_name': file_name,
             }
             return render(request, 'qr_result.html', context)
     elif request.method == 'GET':
