@@ -61,3 +61,8 @@ def loging_view(request):
         else:
             messages.add_message(request, constants.ERROR, 'Athenticate erro!')
             return redirect('login')
+        
+def logout_view(request):
+    logout(request)
+    messages.add_message(request, constants.ERROR, 'Sucess in logout!')
+    return redirect('login')
