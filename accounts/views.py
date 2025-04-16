@@ -38,3 +38,26 @@ def register_view(request):
         except Exception as err:
             messages.add_message(request, constants.ERROR, f'Error: {str(err)}')
             return redirect('register')
+        
+def loging_view(request):
+    if request.method=='GET':
+        return render(request, 'login.html')
+    else:
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        try:
+            user = User.objects.get(email=email)
+            username = user.username
+        except User.DoesNotExist:
+            messages.add_message(request, constants.ERROR, 'Invalid Email or Password!')
+            return redirect('login')
+        
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.add_message(request, constants.SUCCESS, 'Sucess in Login!')
+            return redirect('generete_qr_code')
+        else:
+            messages.add_message(request, constants.ERROR, 'Athenticate erro!')
+            return redirect('login')
